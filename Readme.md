@@ -33,3 +33,5 @@ Again, open certlm.msc and check if you have three real certificates from Let's 
 ```powershell
 Get-CsCertificate
 ```
+
+If everything works as expected, you can schedule the script with the Windows Task Scheduler.
