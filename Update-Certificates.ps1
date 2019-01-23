@@ -136,7 +136,7 @@ Write-Host "Start request for $WebFQDN" -ForegroundColor Green
 if ($Live){
     .\le64.exe --key account.key --csr web.csr --csr-key web.key --crt web.crt --domains $WebFQDN --path C:\StartReady\LetsEncrypt\www\.well-known\acme-challenge\ --generate-missing --unlink --export-pfx $PfxPassword --live
     certutil -f -p $PfxPassword -importpfx .\web.pfx NoRoot
-    $ImportSip = Get-ChildItem Cert:\LocalMachine\my\ | Where-Object {$_.Subject -eq "cn=$WebFQDN" -and $_.Issuer -eq "CN=Let's Encrypt Authority X3, O=Let's Encrypt, C=US" -and $_.NotBefore.ToString("yyyyMMdd") -eq (Get-Date -Format yyyyMMdd)}
+    $ImportWeb = Get-ChildItem Cert:\LocalMachine\my\ | Where-Object {$_.Subject -eq "cn=$WebFQDN" -and $_.Issuer -eq "CN=Let's Encrypt Authority X3, O=Let's Encrypt, C=US" -and $_.NotBefore.ToString("yyyyMMdd") -eq (Get-Date -Format yyyyMMdd)}
     Set-CsCertificate -Thumbprint $ImportWeb.Thumbprint -Type DataEdgeExternal    
 } else {
     .\le64.exe --key account.key --csr web.csr --csr-key web.key --crt web.crt --domains $WebFQDN --path C:\StartReady\LetsEncrypt\www\.well-known\acme-challenge\ --generate-missing --unlink --export-pfx $PfxPassword
@@ -147,7 +147,7 @@ Write-Host "Start request for $AvFQDN" -ForegroundColor Green
 if ($Live) {
     .\le64.exe --key account.key --csr av.csr --csr-key av.key --crt av.crt --domains $AvFQDN --path C:\StartReady\LetsEncrypt\www\.well-known\acme-challenge\ --generate-missing --unlink --export-pfx $PfxPassword --live
     certutil -f -p $PfxPassword -importpfx .\av.pfx NoRoot
-    $ImportSip = Get-ChildItem Cert:\LocalMachine\my\ | Where-Object {$_.Subject -eq "cn=$AvFQDN" -and $_.Issuer -eq "CN=Let's Encrypt Authority X3, O=Let's Encrypt, C=US" -and $_.NotBefore.ToString("yyyyMMdd") -eq (Get-Date -Format yyyyMMdd)}
+    $ImportAV = Get-ChildItem Cert:\LocalMachine\my\ | Where-Object {$_.Subject -eq "cn=$AvFQDN" -and $_.Issuer -eq "CN=Let's Encrypt Authority X3, O=Let's Encrypt, C=US" -and $_.NotBefore.ToString("yyyyMMdd") -eq (Get-Date -Format yyyyMMdd)}
     Set-CsCertificate -Thumbprint $ImportAV.Thumbprint -Type AudioVideoAuthentication    
 } else {
     .\le64.exe --key account.key --csr av.csr --csr-key av.key --crt av.crt --domains $AvFQDN --path C:\StartReady\LetsEncrypt\www\.well-known\acme-challenge\ --generate-missing --unlink --export-pfx $PfxPassword
