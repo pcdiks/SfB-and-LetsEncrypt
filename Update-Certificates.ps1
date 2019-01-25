@@ -101,6 +101,7 @@ if ( -not (Test-Path -Path (Join-Path -Path $ScriptPath -ChildPath "www\.well-kn
 }
 
 #Create and or enalbe Firewall Rules
+Write-Host "Opening Firewall for requests..." -ForegroundColor Green
 if (Get-NetFirewallRule -DisplayName "Allow Mongoose" -ErrorAction SilentlyContinue ) {
     Enable-NetFirewallRule -DisplayName "Allow Mongoose"
 } else {
@@ -111,7 +112,7 @@ Set-Location $ScriptPath
 
 #Force Skype for Business Services to stop
 Write-Host "Stopping Skype for Business services..." -ForegroundColor Green
-Stop-CsWindowsService -NoWait -Force
+Stop-CsWindowsService -Force
 
 Write-Host "Starting Web Server..." -ForegroundColor Green
 Start-Process -FilePath $ScriptPath\mongoose-free-6.9.exe
